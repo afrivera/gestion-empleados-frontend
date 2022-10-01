@@ -29,7 +29,8 @@ export class ListaEmpleadosComponent implements OnInit {
   }
 
   eliminarEmpleado( id: number){
-    console.log(id);
+    this.empleadoService.eliminarEmpleado(id)
+      .subscribe(data => this.getEmployees());
   }
 
 }
