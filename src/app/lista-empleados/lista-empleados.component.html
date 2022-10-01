@@ -5,13 +5,21 @@
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Email</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let empleado of empleados">
-            <th>{{empleado.nombre}}</th>
-            <th>{{empleado.apellido}}</th>
-            <th>{{empleado.email}}</th>
+            <td>{{empleado.nombre}}</td>
+            <td>{{empleado.apellido}}</td>
+            <td>{{empleado.email}}</td>
+            <td>
+                <button class="btn btn-info"
+                        [routerLink]="['/actualizar-empleado', empleado.id]">Editar</button>
+                <button class="btn btn-danger"
+                        (click)="ActualizarEmpleado(empleado.id)"
+                        style="margin-left: 10px;">Eliminar</button>
+            </td>
         </tr>
     </tbody>
 </table>

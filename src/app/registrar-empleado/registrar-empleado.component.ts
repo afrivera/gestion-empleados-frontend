@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap } from 'rxjs';
 import { Empleado } from '../empleado';
 import { EmpleadoService } from '../empleado.service';
 
@@ -14,18 +15,37 @@ export class RegistrarEmpleadoComponent implements OnInit {
 
   constructor(
     private empleadoService: EmpleadoService,
-    private router: Router
+    private router: Router,
+    private activateRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    if(!this.router.url.includes('actualizar')){
+      return;
+    }
+
+    this.activateRoute.params
+      .pipe(
+        switchMap(({id})=> this.empleadoService.getEmpleadoById(id))
+      )
+      .subscribe(empl => this.empleado = empl)
   }
 
   guardarEmpleado(){
-    this.empleadoService.registrarEmpleado(this.empleado)
-          .subscribe(dato => {
-            console.log(dato);
-            this.router.navigateByUrl("/empleados");
-          })
+    if(this.empleado.nombre.trim().length===0) return;
+
+    if(this.empleado.id){
+      // update
+      this.empleadoService.actualizarEmpleado(this.empleado.id, this.empleado)
+        .subscribe(()=> this.router.navigateByUrl('empleados') )
+    }else {
+      // add
+      this.empleadoService.registrarEmpleado(this.empleado)
+            .subscribe(dato => {
+              this.router.navigateByUrl("/empleados");
+            })
+    }
+    
   }
 
   onSubmit(){

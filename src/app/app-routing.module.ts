@@ -6,6 +6,7 @@ import { RegistrarEmpleadoComponent } from './registrar-empleado/registrar-emple
 const routes: Routes = [
   { path:'empleados', component: ListaEmpleadosComponent},
   { path:'registrar-empleado', component: RegistrarEmpleadoComponent},
+  { path:'actualizar-empleado/:id', component: RegistrarEmpleadoComponent},
   { path: '**', redirectTo: 'empleados'}
 ];
 

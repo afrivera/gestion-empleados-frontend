@@ -24,4 +24,12 @@ export class ListaEmpleadosComponent implements OnInit {
         .subscribe(e=> this.empleados = e);
   }
 
+  ActualizarEmpleado(id: number){
+    console.log(id);
+  }
+
+  eliminarEmpleado( id: number){
+    console.log(id);
+  }
+
 }
