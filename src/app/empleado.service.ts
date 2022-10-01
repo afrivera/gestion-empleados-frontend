@@ -17,4 +17,9 @@ export class EmpleadoService {
   getAllEmpleado(): Observable<Empleado[]>{
     return this.http.get<Empleado[]>(`${this.base_url}`);
   }
+
+  // este metodo sirve para registrar un empleado
+  registrarEmpleado(empleado:Empleado): Observable<Object>{
+    return this.http.post(`${this.base_url}`, empleado);
+  }
 }
